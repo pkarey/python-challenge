@@ -4,7 +4,7 @@ import os
 #Import csv
 import csv
 
-csvpath = os.path.join('..', 'Pybank', 'Resources', 'budget_data.csv')
+csvpath = os.path.join('..', 'PyPoll', 'Resources', 'election_data.csv')
 
 with open(csvpath) as csvfile:
 
