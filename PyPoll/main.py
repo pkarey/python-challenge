@@ -5,8 +5,8 @@ import os
 import csv
 
 #Define file paths
-csvpath = os.path.join('..', 'PyPoll', 'Resources', 'election_data.csv')
-txtpath = os.path.join('..','PyPoll','Analysis','poll_analysis.txt')
+csvpath = os.path.join('PyPoll', 'Resources', 'election_data.csv')
+txtpath = os.path.join('PyPoll','Analysis', 'poll_analysis.txt')
 
 #Declare functions for formatting
 def separator():
