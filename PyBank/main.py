@@ -4,17 +4,75 @@ import os
 #Import csv
 import csv
 
+#Define file paths
 csvpath = os.path.join('..', 'Pybank', 'Resources', 'budget_data.csv')
+txtpath = os.path.join('..','PyPoll','Analysis','analysis_profitloss.txt')
 
+#Declare functions for formatting
+def separator():
+    print("--------------------------")
+def spacer():
+    print()
+def separate_spacer():
+    spacer()
+    separator()
+    spacer()
+
+#Open csv and enable reader, store header row
 with open(csvpath) as csvfile:
 
     csvreader = csv.reader(csvfile, delimiter=',')
-
-    print(csvreader)
-
     csv_header = next(csvreader)
-    print(f"Csv Header:{csv_header}")
     
-    for row in csvreader:
-        print(row)
+#Store Profit/Loss values & Month values as separate lists
+    rows = [[row[0], int(row[1])] for row in csvreader if row]
+    months = [row[0] for row in rows]
 
+#Edit month list to remove first value
+    dict_month = months[1:]
+
+#Establish variable for total months
+    total_months = len(months)
+
+#Create list for profit/loss as integers
+    data = [int(row[1]) for row in rows]
+
+#Calculate find differences between profit/loss values and find sum
+    deltas = [x - data[i - 1] for i, x in enumerate(data)][1:]
+    total = sum(data)
+
+#Create min and max variables for profit/loss lists before zipping
+    max_val = max(deltas)
+    min_val = min(deltas)
+
+#Zip edited month list and change profit/loss list
+#Find months with greatest profit/loss
+    delta_dict = dict(zip(dict_month, deltas))
+    max = (max(delta_dict, key = delta_dict.get))
+    min = (min(delta_dict, key = delta_dict.get))
+
+#Establish variables to print data in string
+    total_print = str(total)
+    sum_deltas = sum(deltas)
+    avg_deltas = round(sum_deltas / len(deltas),2)
+    avg_deltas_print = str(avg_deltas)
+    max_mo = str(max)
+    min_mo = str(min)
+    max_val_print = str(max_val)
+    min_val_print = str(min_val)
+    print_max = str('(' + max_val_print + ')')
+    print_min = str('(' + min_val_print + ')')
+    
+#Print analysis with formatting
+    print("Financial Analysis")
+    separate_spacer()
+    print(f"Total Months: ", total_months)
+    spacer()
+    print("Total: " + "$" + total_print)
+    spacer()
+    print("Average Change: " + "$" + avg_deltas_print)
+    spacer()
+    print("Greatest Increase in Profits: " + max_mo + " ($" + max_val_print + ")")
+    spacer()
+    print("Greatest Decrease in Profits: " + min_mo + " ($" + min_val_print + ")")
+    spacer()
