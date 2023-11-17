@@ -4,10 +4,8 @@ import os
 #Import csv
 import csv
 
-#Define file paths
+#Define file path to locate csv
 csvpath = os.path.join('PyBank', 'Resources', 'budget_data.csv')
-txtpath = os.path.join('PyBank','Analysis','analysis_profitloss.txt')
-
 #Declare functions for formatting
 def separator():
     print("--------------------------")
@@ -62,8 +60,20 @@ with open(csvpath) as csvfile:
     min_val_print = str(min_val)
     print_max = str('(' + max_val_print + ')')
     print_min = str('(' + min_val_print + ')')
-    
-#Print analysis with formatting
+
+#Define file path to locate and write in txt file 
+    txtpath = os.path.join('PyBank', 'Analysis', 'analysis_profitloss')
+    with open(txtpath, "w") as txtfile:
+
+#Print analysis with to txtfile
+        print("Financial Analysis", file = txtfile)
+        print(f"Total Months: ", total_months, file = txtfile)
+        print("Total: " + "$" + total_print, file = txtfile)
+        print("Average Change: " + "$" + avg_deltas_print, file = txtfile)
+        print("Greatest Increase in Profits: " + max_mo + " ($" + max_val_print + ")", file = txtfile)
+        print("Greatest Decrease in Profits: " + min_mo + " ($" + min_val_print + ")", file = txtfile)
+
+#Print analysis with formatting to terminal
     print("Financial Analysis")
     separate_spacer()
     print(f"Total Months: ", total_months)

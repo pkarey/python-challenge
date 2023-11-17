@@ -4,9 +4,8 @@ import os
 #Import csv
 import csv
 
-#Define file paths
+#Define file path to locate csv
 csvpath = os.path.join('PyPoll', 'Resources', 'election_data.csv')
-txtpath = os.path.join('PyPoll','Analysis', 'poll_analysis.txt')
 
 #Declare functions for formatting
 def separator():
@@ -70,27 +69,31 @@ with open(csvpath) as csv_poll:
 #Create dictionary for candidate vote counts
     vote_count_dict = {stockham: stockham_votes, degette : degette_votes, doane : doane_votes}
 
-#Print Text Header
+#Define file path to locate and write in txtfile
+    txtpath = os.path.join('PyPoll','Analysis', 'poll_analysis.txt')
+    with open(txtpath, "w") as txtfile:
+
+#Print analysis in txtfile
+        print("Election Results", file = txtfile)
+        print(f"Total Votes: ", total_votes, file = txtfile)
+        print(stockham_entry, stockham_percentage_entry, stockham_print_votes, file = txtfile)
+        print(degette_entry, degette_percentage_entry, degette_print_votes, file = txtfile)
+        print(doane_entry, doane_percentage_entry, doane_print_votes, file = txtfile)
+        winner = max(vote_count_dict, key = vote_count_dict.get)
+        winner = str(winner)
+        print(f"Winner: ", winner, file = txtfile)
+
+#Print analysis with formatting to terminal
     print("Election Results")
-
-#Insert formatting
     separate_spacer()
-
-#Print total votes
     print(f"Total Votes: ", total_votes)
-
-#Insert formatting
     separate_spacer()
-
-#Print candidate results with formatting
     print(stockham_entry, stockham_percentage_entry, stockham_print_votes)
     spacer()
     print(degette_entry, degette_percentage_entry, degette_print_votes)
     spacer()
     print(doane_entry, doane_percentage_entry, doane_print_votes)
     separate_spacer()
-
-#Print winning candidate
-    max = max(vote_count_dict, key = vote_count_dict.get)
-    print(f"Winner: ", max)
+    winner = max(vote_count_dict, key = vote_count_dict.get)
+    print(f"Winner: ", winner)
     separate_spacer()
